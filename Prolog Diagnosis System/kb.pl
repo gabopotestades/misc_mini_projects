@@ -16,8 +16,55 @@ disease(tb, 'Tuberculosis').
 disease(injury, 'Injury').
 disease(heart_disease, 'Heart Disease').
 
-
 diagnosis(P, acute_respiratory_infection) :-
 	fever(P),
 	fatigue(P).
-	
+
+bigger(elephant, horse).
+bigger(horse, donkey).
+bigger(donkey, dog).
+bigger(donkey, monkey).
+
+is_bigger(X, Y) :- bigger(X, Y).
+is_bigger(X, Y) :- bigger(X, Z), is_bigger(Z, Y).
+
+smaller(tardigrade, cricket).
+smaller(cricket, monkey).
+smaller(monkey, donkey).
+smaller(monkey, panda).
+smaller(panda, elephant).
+
+smaller(X, Y) :- bigger(Y, X).
+
+is_smaller(X, Y) :- smaller(X, Y).
+is_smaller(X, Y) :- smaller(X, Z), is_smaller(Z, Y).
+
+is_smaller(X, Y) :- is_bigger(Y, X).
+
+
+male(ned).
+male(jon).
+female(arya).
+female(sansa).
+female(catelyn).
+female(daenerys).
+
+father(ned, jon).
+father(ned, sansa).
+father(ned, arya).
+
+mother(catelyn, jon).
+mother(catelyn, sansa).
+mother(catelyn, arya).
+
+husband(ned, catelyn).
+husband(jon, daenerys).
+
+sister_in_law(Y):-
+sibling(X, Z), husband(X, Y), female(Z),
+write(Z), nl.
+
+siblings(F, M) :-
+father(P, C),
+mother(M, C),
+write(C), nl.
