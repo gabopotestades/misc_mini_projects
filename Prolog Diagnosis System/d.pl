@@ -41,7 +41,6 @@ is_smaller(X, Y) :- smaller(X, Z), is_smaller(Z, Y).
 
 is_smaller(X, Y) :- is_bigger(Y, X).
 
-
 male(ned).
 male(jon).
 female(arya).
@@ -65,6 +64,6 @@ sibling(X, Z), husband(X, Y), female(Z),
 write(Z), nl.
 
 siblings(F, M) :-
-father(P, C),
+father(F, C),
 mother(M, C),
 write(C), nl.
