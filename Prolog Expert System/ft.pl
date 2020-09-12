@@ -20,27 +20,23 @@ child(P):-
 parent(P, C),
 write(C), nl.
 
-sister(C, S):-
+sister(S, C):-
 male(F), female(M),
 parent(F, C), parent(M, C),
 parent(F, S), parent(M, S), female(S), \+ C = S.
 
-brother(C, S):-
+brother(B, C):-
 male(F), female(M),
 parent(F, C), parent(M, C),
-parent(F, S), parent(M, S), male(S), \+ C = S.
+parent(F, B), parent(M, B), male(B), \+ C = B.
 
 uncle(C):-
-male(U),
-parent(F, U),
-parent(F, D),
+brother(U, D),
 parent(D, C), \+ U = D,
 write(U), nl.
 
 aunt(C):-
-female(U),
-parent(F, U),
-parent(F, D),
+sister(U, D),
 parent(D, C), \+ U = D,
 write(U), nl.
 
@@ -56,13 +52,17 @@ write(G), nl.
 
 sister_in_law(C):-
 (spouse(C, S) ; spouse(S, C)),
-sister(S, SL),
+sister(SL, S),
 write(SL), nl.
 
 brother_in_law(C):-
 (spouse(C, S) ; spouse(S, C)),
-brother(S, SL),
-write(SL), nl.
+brother(BL, S),
+write(BL), nl.
+
+stepmother(C):-
+spouse(M, F), parent(F, C), male(F),
+\+ parent(M, C), write(M), nl.
 
 ancestor(A, C):- parent(A, C).
 ancestor(A, C):- parent(P, C), ancestor(A, P).
