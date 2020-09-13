@@ -2,4 +2,13 @@ https://www.doh.gov.ph/Statistics/Leading-Causes-of-Morbidity
 
 1. Acute Upper Respiratory Infection:
 https://www.healthline.com/health/acute-upper-respiratory-infection#symptoms
+
+2. Pneumonia:
+https://www.nhs.uk/conditions/pneumonia/
+
+A.Prolog Code:
 http://rigaux.org/language-study/syntax-across-languages-per-language/Prolog.html
+
+B.Cut Command:
+http://www.learnprolognow.org/lpnpage.php?pagetype=html&pageid=lpn-htmlse43#:~:text=There%20is%20a%20built%2Din,can%20use%20when%20writing%20clauses.
+
