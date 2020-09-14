@@ -121,7 +121,6 @@ assert(no(Question)), fail).
 verify(S) :-
 (yes(S) -> true ; (no(S) -> fail ; ask(S))).
 
-/* undo all yes/no assertions*/
 undo :- retract(yes(_)),fail.
 undo :- retract(no(_)),fail.
 undo.

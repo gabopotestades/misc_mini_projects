@@ -1,8 +1,9 @@
 :- dynamic symptom/1, not_symptom/1.
 
 diagnose :-
-    write('Does patient have the following: '), nl,
-    diseases(Dis), possible_disease(Dis, Desc),
+    write('Does patient have the following: '), nl, 
+    diseases(Dis),
+    possible_disease(Dis, Desc),
     write('The patient may have the following illnesses:'), nl,
     write(Desc).
 
@@ -14,12 +15,11 @@ query(Symp) :-
     write(Desc),
     write('? '),
     read(Ans), nl,
-    add_symptom(Symp, Ans), fail.
+    add_symptom(Symp, Ans).
 
 add_symptom(Symp, Ans) :-
-    (  Ans = y -> Fact =.. [symptom, Symp] ;
-    \+ Ans = y -> Fact =.. [not_symptom, Symp]),
-    assertz(Fact).
+    (Ans == y ->  assert(symptom(Symp)) ; 
+    assert(not_symptom(Symp)), fail).
 
 diseases(acute_respiratory_infection).
 diseases(pneumonia).
@@ -71,9 +71,4 @@ pneumonia :-
 undo :- retract(symptom(_)),fail.
 undo :- retract(not_symptom(_)),fail.
 undo.
-
-    
-
-
-
 
