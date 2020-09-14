@@ -6,6 +6,10 @@ https://www.healthline.com/health/acute-upper-respiratory-infection#symptoms
 2. Pneumonia:
 https://www.nhs.uk/conditions/pneumonia/
 
+3. Bronchitis:
+https://www.mayoclinic.org/diseases-conditions/bronchitis/symptoms-causes/syc-20355566
+https://my.clevelandclinic.org/health/diseases/3993-bronchitis
+
 A.Prolog Code:
 http://rigaux.org/language-study/syntax-across-languages-per-language/Prolog.html
 

@@ -2,8 +2,8 @@
 
 diagnose :-
     write('Does patient have the following: '), nl, 
-    diseases(Dis),
-    possible_disease(Dis, Desc),
+    possible_disease(Dis),
+    disease(Dis, Desc),
     write('The patient may have the following illnesses:'), nl,
     write(Desc).
 
@@ -21,19 +21,19 @@ add_symptom(Symp, Ans) :-
     (Ans == y ->  assert(symptom(Symp)) ; 
     assert(not_symptom(Symp)), fail).
 
-diseases(acute_respiratory_infection).
-diseases(pneumonia).
+possible_disease(acute_respiratory_infection).
+possible_disease(pneumonia).
+possible_disease(bronchitis).
 /*
-diseases(bronchitis).
-diseases(hypertension).
-diseases(acute_watery_diarrhea).
-diseases(influenza).
-diseases(uti).
-diseases(tb).
-diseases(injury).
-diseases(heart_disease).
+possible_disease(hypertension).
+possible_disease(acute_watery_diarrhea).
+possible_disease(influenza).
+possible_disease(uti).
+possible_disease(tb).
+possible_disease(injury).
+possible_disease(heart_disease).
 */
-diseases(none).
+possible_disease(none).
 
 possible_symptoms(fever, 'Fever').
 possible_symptoms(fatigue, 'Fatigue').
@@ -46,12 +46,15 @@ possible_symptoms(heartbeat, 'Rapid Heartbeat').
 possible_symptoms(shivering, 'Shivering').
 possible_symptoms(appetite, 'Lost of appetite').
 possible_symptoms(chest_pain, 'Chest pains').
+possible_symptoms(mucus, 'Production of mucus').
 
-possible_disease(acute_respiratory_infection, 'Acute Respiratory Infection') :-
-                 acute_respiratory_infection.
-possible_disease(pneumonia, 'Pneumonia') :-
-                 pneumonia, !.
-possible_disease(none, 'None').
+disease(acute_respiratory_infection, 'Acute Respiratory Infection') :-
+                acute_respiratory_infection.
+disease(pneumonia, 'Pneumonia') :-
+                pneumonia.
+disease(bronchitis, 'Bronchitis') :-
+                bronchitis, !.
+disease(none, 'None').
 
 acute_respiratory_infection :-
     check_symptom(fever), 
@@ -67,6 +70,14 @@ pneumonia :-
     check_symptom(shivering),
     check_symptom(appetite),
     check_symptom(chest_pain).
+
+bronchitis :-
+    check_symptom(fever), 
+    check_symptom(coughing),
+    check_symptom(fatigue),
+    check_symptom(breathing),
+    check_symptom(mucus),
+    (check_symptom(wheezing) ; check_symptom(chest_pain)).
 
 undo :- retract(symptom(_)),fail.
 undo :- retract(not_symptom(_)),fail.
