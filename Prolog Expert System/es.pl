@@ -26,9 +26,9 @@ possible_disease(pneumonia).
 possible_disease(bronchitis).
 possible_disease(influenza).
 possible_disease(uti).
+possible_disease(tuberculosis).
 /*
 possible_disease(acute_watery_diarrhea).
-possible_disease(tb).
 possible_disease(injury).
 possible_disease(heart_disease).
 */
@@ -54,7 +54,8 @@ possible_symptoms(lower_abdominal, 'Lower abdominal pain').
 possible_symptoms(burning, 'Burning sensation when urinating').
 possible_symptoms(frequent, 'Frequent urination').
 possible_symptoms(difficulty_urinating, 'Difficulty urinating').
-
+possible_symptoms(night_sweats, 'Sweating at night').
+possible_symptoms(weight_loss, 'Weight loss').
 
 disease(acute_respiratory_infection, 'Acute Respiratory Infection') :-
                 acute_respiratory_infection.
@@ -63,7 +64,9 @@ disease(pneumonia, 'Pneumonia') :-
 disease(bronchitis, 'Bronchitis') :-
                 bronchitis.
 disease(influenza, 'Influenza') :-
-                influenza, !.
+                influenza.
+disease(tuberculosis, 'Tuberculosis') :-
+                tuberculosis.
 disease(uti, 'Urinary Tract Infection') :-
                 uti, !.
 disease(none, 'None').
@@ -104,6 +107,14 @@ uti :-
     check_symptom(back_pain),
     check_symptom(lower_abdominal),
     (check_symptom(burning) ; check_symptom(frequent) ; check_symptom(difficulty_urinating)).
+
+tuberculosis :-
+    check_symptom(fever),
+    check_symptom(coughing),
+    check_symptom(fatigue),
+    check_symptom(chest_pain),
+    check_symptom(night_sweats),
+    (check_symptom(appetite) ; check_symptom(weight_loss)).
 
 undo :- retract(symptom(_)),fail.
 undo :- retract(not_symptom(_)),fail.
