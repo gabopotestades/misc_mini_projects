@@ -28,11 +28,7 @@ possible_disease(influenza).
 possible_disease(uti).
 possible_disease(tuberculosis).
 possible_disease(diabetes).
-/*
-possible_disease(acute_watery_diarrhea).
-possible_disease(injury).
-possible_disease(heart_disease).
-*/
+possible_disease(cardiomyopathy).
 possible_disease(none).
 
 possible_symptoms(fever, 'Fever').
@@ -60,6 +56,8 @@ possible_symptoms(weight_loss, 'Weight loss').
 possible_symptoms(excessive_thirst, 'Excessive thirst').
 possible_symptoms(excessive_hunger, 'Excessive hunger').
 possible_symptoms(blurred_vision, 'Blurred vision').
+possible_symptoms(fainting, 'Fainting').
+possible_symptoms(lightheadedness, 'Lightheadedness').
 
 disease(acute_respiratory_infection, 'Acute Respiratory Infection') :-
                 acute_respiratory_infection.
@@ -75,6 +73,8 @@ disease(uti, 'Urinary Tract Infection') :-
                 uti.
 disease(diabetes, 'Diabetes') :-
                 diabetes, !.
+disease(cardiomyopathy, 'Cardiomyopathy') :-
+                cardiomyopathy, !.
 disease(none, 'None').
 
 acute_respiratory_infection :-
@@ -128,6 +128,13 @@ diabetes :-
     check_symptom(weight_loss),
     check_symptom(blurred_vision),
     (check_symptom(excessive_thirst) ; check_symptom(excessive_hunger)).
+
+cardiomyopathy :-
+    check_symptom(breathing),
+    check_symptom(fatigue),
+    check_symptom(chest_pain),
+    check_symptom(fainting),
+    check_symptom(lightheadedness).
 
 undo :- retract(symptom(_)),fail.
 undo :- retract(not_symptom(_)),fail.

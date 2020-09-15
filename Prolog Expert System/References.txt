@@ -34,6 +34,10 @@ https://www.diabetes.org/diabetes/type-1/symptoms
 https://www.healthline.com/health/type-1-diabetes-causes-symtoms-treatments#symptoms
 https://www.niddk.nih.gov/health-information/diabetes/overview/symptoms-causes
 
+8. Cardiomyopathy:
+https://www.heart.org/en/health-topics/cardiomyopathy/symptoms-and-diagnosis-of-cardiomyopathy
+https://www.health.harvard.edu/heart-disease-overview/cardiomyopathy-symptoms-diagnosis-and-treatment
+
 --==Prolog Programming==--
 
 A.Prolog Code:
