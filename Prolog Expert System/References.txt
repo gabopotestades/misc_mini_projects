@@ -10,6 +10,15 @@ https://www.nhs.uk/conditions/pneumonia/
 https://www.mayoclinic.org/diseases-conditions/bronchitis/symptoms-causes/syc-20355566
 https://my.clevelandclinic.org/health/diseases/3993-bronchitis
 
+4. Influenza:
+https://www.cdc.gov/flu/symptoms/symptoms.htm
+https://en.wikipedia.org/wiki/Influenza#Symptoms_of_influenza
+https://www.betterhealth.vic.gov.au/health/conditionsandtreatments/urinary-tract-infections-uti
+
+5. UTI:
+https://www.medicinenet.com/urinary_tract_infection_uti_symptoms_and_signs/symptoms.htm
+https://www.betterhealth.vic.gov.au/health/conditionsandtreatments/urinary-tract-infections-uti
+
 A.Prolog Code:
 http://rigaux.org/language-study/syntax-across-languages-per-language/Prolog.html
 

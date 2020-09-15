@@ -24,11 +24,10 @@ add_symptom(Symp, Ans) :-
 possible_disease(acute_respiratory_infection).
 possible_disease(pneumonia).
 possible_disease(bronchitis).
-/*
-possible_disease(hypertension).
-possible_disease(acute_watery_diarrhea).
 possible_disease(influenza).
 possible_disease(uti).
+/*
+possible_disease(acute_watery_diarrhea).
 possible_disease(tb).
 possible_disease(injury).
 possible_disease(heart_disease).
@@ -47,13 +46,26 @@ possible_symptoms(shivering, 'Shivering').
 possible_symptoms(appetite, 'Lost of appetite').
 possible_symptoms(chest_pain, 'Chest pains').
 possible_symptoms(mucus, 'Production of mucus').
+possible_symptoms(throat, 'Sore throat').
+possible_symptoms(runny_nose, 'Runny nose').
+possible_symptoms(muscle_pain, 'Muscle pains').
+possible_symptoms(back_pain, 'Back pain').
+possible_symptoms(lower_abdominal, 'Lower abdominal pain').
+possible_symptoms(burning, 'Burning sensation when urinating').
+possible_symptoms(frequent, 'Frequent urination').
+possible_symptoms(difficulty_urinating, 'Difficulty urinating').
+
 
 disease(acute_respiratory_infection, 'Acute Respiratory Infection') :-
                 acute_respiratory_infection.
 disease(pneumonia, 'Pneumonia') :-
                 pneumonia.
 disease(bronchitis, 'Bronchitis') :-
-                bronchitis, !.
+                bronchitis.
+disease(influenza, 'Influenza') :-
+                influenza, !.
+disease(uti, 'Urinary Tract Infection') :-
+                uti, !.
 disease(none, 'None').
 
 acute_respiratory_infection :-
@@ -78,6 +90,20 @@ bronchitis :-
     check_symptom(breathing),
     check_symptom(mucus),
     (check_symptom(wheezing) ; check_symptom(chest_pain)).
+
+influenza :-
+    check_symptom(headache), 
+    check_symptom(coughing),
+    check_symptom(fatigue),
+    check_symptom(throat),
+    check_symptom(runny_nose),
+    check_symptom(muscle_pain).
+
+uti :-
+    check_symptom(fever), 
+    check_symptom(back_pain),
+    check_symptom(lower_abdominal),
+    (check_symptom(burning) ; check_symptom(frequent) ; check_symptom(difficulty_urinating)).
 
 undo :- retract(symptom(_)),fail.
 undo :- retract(not_symptom(_)),fail.
