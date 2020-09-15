@@ -1,7 +1,7 @@
 :- dynamic symptom/1, not_symptom/1.
 
 diagnose :-
-    write('Does patient have the following: '), nl, 
+    write('Does patient have the following symptoms: '), nl, 
     possible_disease(Dis),
     disease(Dis, Desc),
     write('The patient may have the following illnesses:'), nl,
@@ -27,6 +27,7 @@ possible_disease(bronchitis).
 possible_disease(influenza).
 possible_disease(uti).
 possible_disease(tuberculosis).
+possible_disease(diabetes).
 /*
 possible_disease(acute_watery_diarrhea).
 possible_disease(injury).
@@ -56,6 +57,9 @@ possible_symptoms(frequent, 'Frequent urination').
 possible_symptoms(difficulty_urinating, 'Difficulty urinating').
 possible_symptoms(night_sweats, 'Sweating at night').
 possible_symptoms(weight_loss, 'Weight loss').
+possible_symptoms(excessive_thirst, 'Excessive thirst').
+possible_symptoms(excessive_hunger, 'Excessive hunger').
+possible_symptoms(blurred_vision, 'Blurred vision').
 
 disease(acute_respiratory_infection, 'Acute Respiratory Infection') :-
                 acute_respiratory_infection.
@@ -68,7 +72,9 @@ disease(influenza, 'Influenza') :-
 disease(tuberculosis, 'Tuberculosis') :-
                 tuberculosis.
 disease(uti, 'Urinary Tract Infection') :-
-                uti, !.
+                uti.
+disease(diabetes, 'Diabetes') :-
+                diabetes, !.
 disease(none, 'None').
 
 acute_respiratory_infection :-
@@ -116,7 +122,13 @@ tuberculosis :-
     check_symptom(night_sweats),
     (check_symptom(appetite) ; check_symptom(weight_loss)).
 
+diabetes :-
+    check_symptom(fatigue),
+    check_symptom(frequent),
+    check_symptom(weight_loss),
+    check_symptom(blurred_vision),
+    (check_symptom(excessive_thirst) ; check_symptom(excessive_hunger)).
+
 undo :- retract(symptom(_)),fail.
 undo :- retract(not_symptom(_)),fail.
 undo.
-

@@ -1,4 +1,10 @@
+--==Main Common Diseases Lists==--
+
 https://www.doh.gov.ph/Statistics/Leading-Causes-of-Morbidity
+http://www.healthdata.org/philippines
+https://www.pna.gov.ph/articles/1052723
+
+--==Diseases Symptoms==--
 
 1. Acute Upper Respiratory Infection:
 https://www.healthline.com/health/acute-upper-respiratory-infection#symptoms
@@ -22,6 +28,13 @@ https://www.betterhealth.vic.gov.au/health/conditionsandtreatments/urinary-tract
 6. Tuberculosis:
 https://www.medicalnewstoday.com/articles/8856#early-warning-signs
 https://www.canada.ca/en/public-health/services/diseases/tuberculosis.html
+
+7. Diabetes:
+https://www.diabetes.org/diabetes/type-1/symptoms
+https://www.healthline.com/health/type-1-diabetes-causes-symtoms-treatments#symptoms
+https://www.niddk.nih.gov/health-information/diabetes/overview/symptoms-causes
+
+--==Prolog Programming==--
 
 A.Prolog Code:
 http://rigaux.org/language-study/syntax-across-languages-per-language/Prolog.html
