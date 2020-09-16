@@ -3,6 +3,7 @@
 https://www.doh.gov.ph/Statistics/Leading-Causes-of-Morbidity
 http://www.healthdata.org/philippines
 https://www.pna.gov.ph/articles/1052723
+https://topten.ph/2014/04/16/top-10-contagious-diseases-philippines/
 
 --==Diseases Symptoms==--
 
@@ -42,6 +43,11 @@ https://www.health.harvard.edu/heart-disease-overview/cardiomyopathy-symptoms-di
 https://www.sleepfoundation.org/sleep-apnea
 https://www.nhlbi.nih.gov/health-topics/sleep-apnea
 https://ghr.nlm.nih.gov/condition/obstructive-sleep-apnea
+
+10. Malaria:
+https://www.youtube.com/watch?v=5zD0hPLUnpU
+https://www.medicinenet.com/malaria_facts/article.htm
+https://www.verywellhealth.com/malaria-signs-symptoms-and-complications-4160602
 
 --==Prolog Programming==--
 

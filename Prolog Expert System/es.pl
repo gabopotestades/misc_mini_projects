@@ -30,6 +30,7 @@ possible_disease(tuberculosis).
 possible_disease(diabetes).
 possible_disease(cardiomyopathy).
 possible_disease(sleep_apnea).
+possible_disease(malaria).
 possible_disease(none).
 
 possible_symptoms(fever, 'Fever').
@@ -62,6 +63,9 @@ possible_symptoms(lightheadedness, 'Lightheadedness').
 possible_symptoms(daytime, 'Excessive daytime sleepiness').
 possible_symptoms(snoring, 'Frequent loud snoring').
 possible_symptoms(reduced, 'Reduced or absent breathing, known as apnea events').
+possible_symptoms(vomiting, 'Vomiting').
+possible_symptoms(nausea, 'Nausea').
+possible_symptoms(chills, 'Chills').
 
 disease(acute_respiratory_infection, 'Acute Respiratory Infection') :-
                 acute_respiratory_infection.
@@ -80,7 +84,9 @@ disease(diabetes, 'Diabetes') :-
 disease(cardiomyopathy, 'Cardiomyopathy') :-
                 cardiomyopathy.
 disease(sleep_apnea, 'Obstructive Sleep Apnea') :-
-                sleep_apnea, !.
+                sleep_apnea.
+disease(malaria, 'Malaria') :-
+                malaria, !.
                 
 disease(none, 'None').
 
@@ -149,6 +155,13 @@ sleep_apnea :-
     check_symptom(snoring),
     check_symptom(reduced),
     (check_symptom(fatigue) ; check_symptom(daytime)).
+
+malaria :-
+    check_symptom(fever),
+    check_symptom(headache),
+    check_symptom(fatigue),
+    (check_symptom(chills) ; check_symptom(night_sweats)),
+    (check_symptom(vomiting) ; check_symptom(nausea)).
 
 undo :- retract(symptom(_)),fail.
 undo :- retract(not_symptom(_)),fail.
