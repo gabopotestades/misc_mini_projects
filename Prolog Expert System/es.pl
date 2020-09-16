@@ -29,6 +29,7 @@ possible_disease(uti).
 possible_disease(tuberculosis).
 possible_disease(diabetes).
 possible_disease(cardiomyopathy).
+possible_disease(sleep_apnea).
 possible_disease(none).
 
 possible_symptoms(fever, 'Fever').
@@ -58,6 +59,9 @@ possible_symptoms(excessive_hunger, 'Excessive hunger').
 possible_symptoms(blurred_vision, 'Blurred vision').
 possible_symptoms(fainting, 'Fainting').
 possible_symptoms(lightheadedness, 'Lightheadedness').
+possible_symptoms(daytime, 'Excessive daytime sleepiness').
+possible_symptoms(snoring, 'Frequent loud snoring').
+possible_symptoms(reduced, 'Reduced or absent breathing, known as apnea events').
 
 disease(acute_respiratory_infection, 'Acute Respiratory Infection') :-
                 acute_respiratory_infection.
@@ -74,7 +78,10 @@ disease(uti, 'Urinary Tract Infection') :-
 disease(diabetes, 'Diabetes') :-
                 diabetes, !.
 disease(cardiomyopathy, 'Cardiomyopathy') :-
-                cardiomyopathy, !.
+                cardiomyopathy.
+disease(sleep_apnea, 'Obstructive Sleep Apnea') :-
+                sleep_apnea, !.
+                
 disease(none, 'None').
 
 acute_respiratory_infection :-
@@ -135,6 +142,13 @@ cardiomyopathy :-
     check_symptom(chest_pain),
     check_symptom(fainting),
     check_symptom(lightheadedness).
+
+sleep_apnea :-
+    check_symptom(headache),
+    check_symptom(throat),
+    check_symptom(snoring),
+    check_symptom(reduced),
+    (check_symptom(fatigue) ; check_symptom(daytime)).
 
 undo :- retract(symptom(_)),fail.
 undo :- retract(not_symptom(_)),fail.

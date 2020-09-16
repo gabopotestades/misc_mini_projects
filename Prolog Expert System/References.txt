@@ -38,6 +38,11 @@ https://www.niddk.nih.gov/health-information/diabetes/overview/symptoms-causes
 https://www.heart.org/en/health-topics/cardiomyopathy/symptoms-and-diagnosis-of-cardiomyopathy
 https://www.health.harvard.edu/heart-disease-overview/cardiomyopathy-symptoms-diagnosis-and-treatment
 
+9. Sleep Apnea:
+https://www.sleepfoundation.org/sleep-apnea
+https://www.nhlbi.nih.gov/health-topics/sleep-apnea
+https://ghr.nlm.nih.gov/condition/obstructive-sleep-apnea
+
 --==Prolog Programming==--
 
 A.Prolog Code:
