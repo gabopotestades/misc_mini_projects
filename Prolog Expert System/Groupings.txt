@@ -1,0 +1,126 @@
+fatigue = 8
+acute_respiratory_infection
+bronchitis
+influenza
+tuberculosis
+diabetes
+cardiomyopathy
+sleep_apnea
+malaria
+
+fever = 6
+acute_respiratory_infection
+pneumonia
+bronchitis
+uti
+tuberculosis
+malaria
+
+headache = 4
+acute_respiratory_infection
+influenza
+sleep_apnea
+malaria
+
+chest_pain = 4
+pneumonia
+bronchitis
+tuberculosis
+cardiomyopathy
+
+coughing = 3
+bronchitis
+influenza
+tuberculosis
+
+breathing = 3
+pneumonia
+bronchitis
+cardiomyopathy
+
+wheezing = 2
+acute_respiratory_infection
+bronchitis
+
+appetite = 2
+pneumonia
+tuberculosis
+
+throat = 2
+influenza
+sleep_apnea
+
+frequent = 2
+uti
+diabetes
+
+night_sweats = 2
+tuberculosis
+malaria
+
+weight_loss = 2
+tuberculosis
+diabetes
+
+swallow:
+acute_respiratory_infection
+
+heartbeat:
+pneumonia
+
+shivering:
+pneumonia
+
+mucus:
+bronchitis
+
+runny_nose:
+influenza
+
+muscle_pain:
+influenza
+
+back_pain:
+uti
+
+lower_abdominal:
+uti
+
+burning:
+uti
+
+difficulty_urinating:
+uti
+
+excessive_thirst:
+diabetes
+
+excessive_hunger:
+diabetes
+
+blurred_vision:
+diabetes
+
+fainting:
+cardiomyopathy
+
+lightheadedness:
+cardiomyopathy
+
+daytime:
+sleep_apnea
+
+snoring:
+sleep_apnea
+
+reduced:
+sleep_apnea
+
+vomiting:
+malaria
+
+nausea:
+malaria
+
+chills:
+malaria
