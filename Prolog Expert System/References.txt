@@ -22,18 +22,17 @@ https://www.cdc.gov/flu/symptoms/symptoms.htm
 https://en.wikipedia.org/wiki/Influenza#Symptoms_of_influenza
 https://www.betterhealth.vic.gov.au/health/conditionsandtreatments/urinary-tract-infections-uti
 
-5. UTI:
-https://www.medicinenet.com/urinary_tract_infection_uti_symptoms_and_signs/symptoms.htm
-https://www.betterhealth.vic.gov.au/health/conditionsandtreatments/urinary-tract-infections-uti
+5. Asthma:
+https://acaai.org/asthma/asthma-symptoms
+https://www.aafa.org/asthma-symptoms/
 
 6. Tuberculosis:
 https://www.medicalnewstoday.com/articles/8856#early-warning-signs
 https://www.canada.ca/en/public-health/services/diseases/tuberculosis.html
 
-7. Diabetes:
-https://www.diabetes.org/diabetes/type-1/symptoms
-https://www.healthline.com/health/type-1-diabetes-causes-symtoms-treatments#symptoms
-https://www.niddk.nih.gov/health-information/diabetes/overview/symptoms-causes
+7. Cystic Fibrosis:
+https://www.medicalnewstoday.com/articles/147960#symptoms
+https://www.cff.org/What-is-CF/About-Cystic-Fibrosis/
 
 8. Cardiomyopathy:
 https://www.heart.org/en/health-topics/cardiomyopathy/symptoms-and-diagnosis-of-cardiomyopathy
@@ -44,10 +43,10 @@ https://www.sleepfoundation.org/sleep-apnea
 https://www.nhlbi.nih.gov/health-topics/sleep-apnea
 https://ghr.nlm.nih.gov/condition/obstructive-sleep-apnea
 
-10. Malaria:
-https://www.youtube.com/watch?v=5zD0hPLUnpU
-https://www.medicinenet.com/malaria_facts/article.htm
-https://www.verywellhealth.com/malaria-signs-symptoms-and-complications-4160602
+10. Pneumoconiosis:
+https://www.medicalnewstoday.com/articles/319644#risk-factors
+https://www.hopkinsmedicine.org/health/conditions-and-diseases/pneumoconiosis
+https://foundation.chestnet.org/lung-health-a-z/pneumoconiosis/?Item=Symptoms
 
 --==Prolog Programming==--
 
