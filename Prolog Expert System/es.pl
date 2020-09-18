@@ -7,7 +7,7 @@ diagnose :-
     write('Does patient have the following symptoms: '), nl, 
     possible_disease(Dis),
     disease(Dis, Desc),
-    write('The patient may have the following illnesses:'), nl,
+    write('The patient may have the following illness:'), nl,
     write(Desc).
 
 check_symptom(Symp) :-
@@ -46,12 +46,12 @@ possible_disease(bronchitis).
 possible_disease(tuberculosis).
 possible_disease(acute_respiratory_infection).
 possible_disease(pneumonia).
-possible_disease(influenza).
 possible_disease(asthma).
-possible_disease(cystic_fibrosis).
 possible_disease(cardiomyopathy).
-possible_disease(sleep_apnea).
+possible_disease(influenza).
 possible_disease(pneumoconiosis).
+possible_disease(cystic_fibrosis).
+possible_disease(sleep_apnea).
 possible_disease(none).
 
 possible_symptoms(fever, 'Fever').
@@ -97,85 +97,168 @@ disease(cystic_fibrosis, 'Cystic Fibrosis') :-
                 cystic_fibrosis.
 disease(cardiomyopathy, 'Cardiomyopathy') :-
                 cardiomyopathy.
-disease(sleep_apnea, 'Obstructive Sleep Apnea') :-
-                sleep_apnea.
 disease(pneumoconiosis, 'Pneumoconiosis') :-
-                pneumoconiosis, !.
-disease(none, 'None').
+                pneumoconiosis.
+disease(sleep_apnea, 'Obstructive Sleep Apnea') :-
+                sleep_apnea, !.
+disease(none, 'No serious illness.').
 
 bronchitis :-
+/*
+    check_symptom(fatigue),
     check_symptom(fever), 
     check_symptom(coughing),
-    check_symptom(fatigue),
     check_symptom(breathing),
     (check_symptom(wheezing) ; check_symptom(chest_pain)),
     check_symptom(mucus).
+*/
+    symptom(fatigue),
+    symptom(coughing),
+    symptom(fever),
+    symptom(breathing),
+    (symptom(chest_pain) ; symptom(wheezing) ; check_symptom(mucus)).
     
 tuberculosis :-
+/*
+    check_symptom(fatigue),
     check_symptom(fever),
     check_symptom(coughing),
-    check_symptom(fatigue),
     check_symptom(chest_pain),
     check_symptom(night_sweats),
     (check_symptom(appetite) ; check_symptom(weight_loss)).
+*/
+    symptom(fatigue), 
+    symptom(coughing),
+    symptom(fever), 
+    not_symptom(breathing),
+    symptom(chest_pain), 
+    not_symptom(wheezing),
+    (check_symptom(night_sweats) ; check_symptom(appetite) ; check_symptom(weight_loss)).
 
 acute_respiratory_infection :-
+/*
     check_symptom(fatigue),
     check_symptom(fever), 
     check_symptom(wheezing),
     check_symptom(headache),
     check_symptom(swallow).
+*/
+    symptom(fatigue), 
+    not_symptom(coughing),
+    symptom(fever),
+    not_symptom(breathing), 
+    not_symptom(chest_pain),
+    symptom(wheezing),
+    (check_symptom(headache) ; check_symptom(swallow)).
 
 pneumonia :-
+/*
     check_symptom(fever), 
     check_symptom(breathing),
+    check_symptom(chest_pain),
     check_symptom(heartbeat),
     check_symptom(shivering),
-    check_symptom(appetite),
-    check_symptom(chest_pain).
-
-influenza :-
-    check_symptom(headache), 
-    check_symptom(coughing),
-    check_symptom(fatigue),
-    check_symptom(throat),
-    check_symptom(runny_nose),
-    check_symptom(muscle_pain).
+    check_symptom(appetite).
+*/
+    not_symptom(fatigue), 
+    not_symptom(coughing),
+    symptom(fever), 
+    symptom(breathing),
+    symptom(chest_pain), 
+    not_symptom(wheezing), 
+    (check_symptom(heartbeat) ; check_symptom(shivering) ; check_symptom(appetite)).
 
 asthma :-
+/*
     check_symptom(coughing), 
     check_symptom(wheezing),
     check_symptom(breathing),
     check_symptom(chest_tightening),
     check_symptom(short_breathing).
-
-cystic_fibrosis :-
-    check_symptom(coughing),
-    check_symptom(wheezing),
-    check_symptom(short_breathing),
-    check_symptom(poor_growth),
-    check_symptom(salt_tasting).
+*/
+    not_symptom(fatigue),
+    symptom(coughing),
+    not_symptom(fever),
+    symptom(breathing),
+    not_symptom(chest_pain),
+    symptom(wheezing),
+    (check_symptom(chest_tightening) ; check_symptom(short_breathing)).
 
 cardiomyopathy :-
+/*
     check_symptom(fatigue),
     check_symptom(breathing),
     check_symptom(chest_pain),
     check_symptom(fainting),
     check_symptom(lightheadedness).
 
-sleep_apnea :-
+*/
+    symptom(fatigue),
+    not_symptom(coughing),
+    not_symptom(fever),
+    symptom(breathing),
+    symptom(chest_pain),
+    not_symptom(wheezing),
+    (check_symptom(fainting) ; check_symptom(lightheadedness)).
+
+influenza :-
+/*
+    check_symptom(coughing),
+    check_symptom(fatigue),
     check_symptom(headache),
     check_symptom(throat),
-    (check_symptom(fatigue) ; check_symptom(daytime)),
-    check_symptom(snoring),
-    check_symptom(reduced).
+    check_symptom(runny_nose),
+    check_symptom(muscle_pain).
+*/
+    symptom(fatigue),
+    symptom(coughing),
+    not_symptom(fever),
+    not_symptom(breathing),
+    not_symptom(chest_pain),
+    not_symptom(wheezing), 
+    (check_symptom(headache) ; check_symptom(throat) ; 
+    check_symptom(runny_nose) ; check_symptom(muscle_pain)).
 
 pneumoconiosis :-
+/*
     check_symptom(fatigue),
     check_symptom(coughing),
-    (check_symptom(breathing) ; check_symptom(short_breathing)),
+    check_symptom(short_breathing),
     check_symptom(runny_nose),
     check_symptom(chest_tightening).
+*/
+    symptom(fatigue),
+    symptom(coughing),
+    not_symptom(fever),
+    not_symptom(breathing),
+    not_symptom(chest_pain),
+    not_symptom(wheezing),
+    (check_symptom(short_breathing) ; check_symptom(chest_tightening) ; check_symptom(runny_nose)).
+
+cystic_fibrosis :-
+/*
+    check_symptom(coughing),
+    check_symptom(wheezing),
+    check_symptom(short_breathing),
+    check_symptom(poor_growth),
+    check_symptom(salt_tasting).
+*/
+    not_symptom(fatigue),
+    symptom(coughing),
+    not_symptom(fever),
+    not_symptom(breathing),
+    not_symptom(chest_pain),
+    symptom(wheezing),
+    (check_symptom(short_breathing) ; check_symptom(poor_growth) ; check_symptom(salt_tasting)).
+
+sleep_apnea :-
+    not_symptom(coughing),
+    not_symptom(fever),
+    not_symptom(breathing),
+    not_symptom(chest_pain),
+    not_symptom(wheezing),
+    (symptom(fatigue) ; check_symptom(daytime)) ;  check_symptom(headache) ; 
+    check_symptom(throat) ;  check_symptom(snoring) ;  check_symptom(reduced).
 
 undo :- retract(symptom(_)),fail.
 undo :- retract(not_symptom(_)),fail.

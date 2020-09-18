@@ -1,9 +1,9 @@
 fatigue = 7
 bronchitis
 tuberculosis
-acute_respiratory_infection
-influenza
 cardiomyopathy
+influenza
+acute_respiratory_infection
 sleep_apnea
 pneumoconiosis
 
@@ -13,6 +13,13 @@ tuberculosis
 influenza
 asthma
 cystic_fibrosis
+pneumoconiosis
+
+breathing = 5
+bronchitis
+pneumonia
+cardiomyopathy
+asthma
 pneumoconiosis
 
 fever = 4
@@ -27,18 +34,16 @@ tuberculosis
 pneumonia
 cardiomyopathy
 
-breathing = 5
-bronchitis
-pneumonia
-cardiomyopathy
-asthma
-pneumoconiosis
-
 wheezing = 4
 acute_respiratory_infection
 bronchitis
 asthma
 cystic_fibrosis
+
+short_breathing = 3
+asthma
+cystic_fibrosis
+pneumoconiosis
 
 headache = 3
 acute_respiratory_infection
@@ -52,11 +57,6 @@ pneumonia
 throat = 2
 influenza
 sleep_apnea
-
-short_breathing = 3
-asthma
-cystic_fibrosis
-pneumoconiosis
 
 chest_tightening = 2
 asthma
