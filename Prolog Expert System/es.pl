@@ -1,7 +1,27 @@
-:- dynamic symptom/1, not_symptom/1.
+:- dynamic symptom/1, not_symptom/1, info/2.
 
+/*Ask general questions of patient's background*/
+gen_info :-
+    write('General information: '), nl,
+    write('Name: '),
+    read(Name), assert(info(name, Name)), nl,
+    write('Sex: '),
+    read(Sex), assert(info(sex, Sex)), nl,
+    write('Age: '),
+    read(Age),
+    (
+    (Age < 1 -> Age_var = infant);
+    (Age > 0 , Age < 11 -> Age_var = child);
+    (Age > 11 , Age < 18  -> Age_var = teen);
+    (Age > 17 , Age < 65  -> Age_var = adult);
+    (Age > 65 -> Age_var = elder)
+    ), assert(info(age, Age_var)),
+    nl.
+
+/*Diagnose patient starting with chief complaint*/
 diagnose :-
-    write('Chief complaint: '), nl, 
+    gen_info,
+    write('Chief complaint (y/n): '), nl, 
     chief_complaint(Comp, _),
     chief_complaint_query(Comp),
     write('Does patient have the following symptoms: '), nl, 
@@ -262,4 +282,5 @@ sleep_apnea :-
 
 undo :- retract(symptom(_)),fail.
 undo :- retract(not_symptom(_)),fail.
+undo :- retract(info(_, _)),fail.
 undo.

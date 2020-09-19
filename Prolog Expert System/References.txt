@@ -5,6 +5,10 @@ http://www.healthdata.org/philippines
 https://www.pna.gov.ph/articles/1052723
 https://topten.ph/2014/04/16/top-10-contagious-diseases-philippines/
 
+--==Medical data==--
+Age groups
+https://help.healthycities.org/hc/en-us/articles/219556208-How-are-the-different-age-groups-defined-
+
 --==Diseases Symptoms==--
 
 1. Acute Upper Respiratory Infection:
