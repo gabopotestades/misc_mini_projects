@@ -8,6 +8,8 @@ https://topten.ph/2014/04/16/top-10-contagious-diseases-philippines/
 --==Medical data==--
 Age groups
 https://help.healthycities.org/hc/en-us/articles/219556208-How-are-the-different-age-groups-defined-
+BMI
+https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html
 
 --==Diseases Symptoms==--
 
