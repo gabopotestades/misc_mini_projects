@@ -10,6 +10,8 @@ Age groups
 https://help.healthycities.org/hc/en-us/articles/219556208-How-are-the-different-age-groups-defined-
 BMI
 https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html
+Repiratory Rate
+https://www.healthline.com/health/normal-respiratory-rate#normal-rate-in-kids
 
 --==Diseases Symptoms==--
 
