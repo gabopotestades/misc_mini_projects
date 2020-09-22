@@ -1,4 +1,7 @@
-:- dynamic possible_disease/2, symptom/1, not_symptom/1, info/2.
+:- dynamic 
+    not_symptom/1,
+    symptom/1,  
+    info/2.
 
 /* Foot to inches = x12 e.g. 5.5ft = 66in - For guide only  bmi(150, 65) 5'5*/
 /*Check if underweight*/
@@ -10,10 +13,6 @@ bmi(Weight, Height) :-
     (BMI >= 25 , BMI < 30  -> BMI_var = overweight);
     (BMI >= 30 -> BMI_var = obese)
     ), assert(info(bmi, BMI_var)).
-
-/*Used to tally score*/
-add_score_symp(Input, Output) :-
-    Output = Input + 2.
 
 /*Ask general questions of patient's background*/
 gen_info :-
@@ -49,9 +48,8 @@ diagnose :-
     chief_complaint_query(Comp),
     write('Does patient have the following symptoms (y/n): '), nl, 
     possible_disease(Dis, _),
-    disease(Dis, Desc, 0),
-    write('The patient may have the following illness:'), nl,
-    write(Desc).
+    disease(Dis),
+    check_scores.
 
 check_symptom(Symp) :-
     (symptom(Symp) -> true ; (not_symptom(Symp) -> true ; query(Symp))).
@@ -78,6 +76,11 @@ add_symptom(Symp, Ans) :-
     ((Ans == y ->  assert(symptom(Symp))) ;
     assert(not_symptom(Symp)), Symp == daytime -> fail).
 
+check_scores :-
+    write('DIAGNOSIS PER DISEASE: '), nl, nl,
+    possible_disease(Disease, Desc),
+    score(Disease, Desc).
+
 chief_complaint(fatigue, 'Fatigue').
 chief_complaint(coughing, 'Coughing').
 chief_complaint(fever, 'Fever').
@@ -85,17 +88,16 @@ chief_complaint(breathing, 'Difficulty breathing').
 chief_complaint(chest_pain, 'Chest pains').
 chief_complaint(wheezing, 'Wheezing').
 
-possible_disease(bronchitis, 0).
-possible_disease(tuberculosis, 0).
-possible_disease(acute_respiratory_infection, 0).
-possible_disease(pneumonia, 0).
-possible_disease(asthma, 0).
-possible_disease(cardiomyopathy, 0).
-possible_disease(influenza, 0).
-possible_disease(pneumoconiosis, 0).
-possible_disease(cystic_fibrosis, 0).
-possible_disease(sleep_apnea, 0).
-possible_disease(none, 0).
+possible_disease(bronchitis, 'Bronchitis').
+possible_disease(tuberculosis, 'Tuberculosis').
+possible_disease(acute_respiratory_infection, 'Acute Respiratory Infection').
+possible_disease(pneumonia, 'Pneumonia').
+possible_disease(asthma, 'Asthma').
+possible_disease(cardiomyopathy, 'Cardiomyopathy').
+possible_disease(influenza, 'Influenza').
+possible_disease(pneumoconiosis, 'Pneumoconiosis').
+possible_disease(cystic_fibrosis, 'Cystic Fibrosis').
+possible_disease(sleep_apnea, 'Sleep Apnea').
 
 possible_symptoms(fever, 'Fever').
 possible_symptoms(fatigue, 'Fatigue').
@@ -124,35 +126,118 @@ possible_symptoms(snoring, 'Frequent loud snoring').
 possible_symptoms(reduced, 'Reduced or absent breathing during sleep').
 possible_symptoms(salt_tasting, 'Salty-tasting skin').
 
-disease(bronchitis, 'Bronchitis', Score) :-
-                bronchitis(Score).
-disease(tuberculosis, 'Tuberculosis', Score) :-
-                tuberculosis(Score).
-disease(acute_respiratory_infection, 'Acute Respiratory Infection', Score) :-
-                acute_respiratory_infection(Score).
-disease(pneumonia, 'Pneumonia', Score) :-
-                pneumonia(Score).
-disease(influenza, 'Influenza', Score) :-
-                influenza(Score).
-disease(asthma, 'Asthma', Score) :-
-                asthma(Score).
-disease(cystic_fibrosis, 'Cystic Fibrosis', Score) :-
-                cystic_fibrosis(Score).
-disease(cardiomyopathy, 'Cardiomyopathy', Score) :-
-                cardiomyopathy(Score).
-disease(pneumoconiosis, 'Pneumoconiosis', Score) :-
-                pneumoconiosis(Score).
-disease(sleep_apnea, 'Obstructive Sleep Apnea', Score) :-
-                sleep_apnea(Score) ; true.
-disease(none, 'No serious illness.', 0).
+disease(bronchitis) :- bronchitis.
+disease(tuberculosis) :- tuberculosis.
+disease(acute_respiratory_infection) :- acute_respiratory_infection.
+disease(pneumonia) :- pneumonia.
+disease(asthma) :- asthma.
+disease(cardiomyopathy) :- cardiomyopathy.
+disease(influenza) :- influenza.
+disease(pneumoconiosis) :- pneumoconiosis.
+disease(cystic_fibrosis) :- cystic_fibrosis.
+disease(sleep_apnea) :- sleep_apnea ; true.
 
-bronchitis(Score) :-
-/*
-    symptom(fatigue),
-    symptom(coughing),
-    symptom(fever),
-    symptom(breathing),
-*/
+score(bronchitis, Desc) :- 
+    score_bronchitis(Score), 
+    (
+        (Score = 0 -> Rating = ': none');
+        (Score >= 1 , Score < 7 -> Rating = ': low');
+        (Score >= 7 , Score < 12  -> Rating = ': moderate');
+        (Score >= 12   -> Rating = ': high')
+    ), 
+    write(Desc), write(Rating), nl, fail.
+
+score(tuberculosis, Desc) :-
+     score_tuberculosis(Score), 
+    (
+        (Score = 0 -> Rating = ': none');
+        (Score >= 1 , Score < 7 -> Rating = ': low');
+        (Score >= 7 , Score < 12  -> Rating = ': moderate');
+        (Score >= 12   -> Rating = ': high')
+    ), 
+    write(Desc), write(Rating), nl, fail.
+
+score(acute_respiratory_infection, Desc) :-
+     score_acute_respiratory_infection(Score), 
+    (
+        (Score = 0 -> Rating = ': none');
+        (Score >= 1 , Score < 7 -> Rating = ': low');
+        (Score >= 7 , Score < 12  -> Rating = ': moderate');
+        (Score >= 12   -> Rating = ': high')
+    ), 
+    write(Desc), write(Rating), nl, fail.
+    
+score(pneumonia, Desc) :-
+     score_pneumonia(Score),
+    (
+        (Score = 0 -> Rating = ': none');
+        (Score >= 1 , Score < 7 -> Rating = ': low');
+        (Score >= 7 , Score < 12  -> Rating = ': moderate');
+        (Score >= 12   -> Rating = ': high')
+    ), 
+    write(Desc), write(Rating), nl, fail.
+    
+score(asthma, Desc) :-
+     score_asthma(Score),
+    (
+        (Score = 0 -> Rating = ': none');
+        (Score >= 1 , Score < 7 -> Rating = ': low');
+        (Score >= 7 , Score < 12  -> Rating = ': moderate');
+        (Score >= 12   -> Rating = ': high')
+    ), 
+    write(Desc), write(Rating), nl, fail.
+    
+score(cardiomyopathy, Desc) :-
+     score_cardiomyopathy(Score),
+    (
+        (Score = 0 -> Rating = ': none');
+        (Score >= 1 , Score < 7 -> Rating = ': low');
+        (Score >= 7 , Score < 12  -> Rating = ': moderate');
+        (Score >= 12   -> Rating = ': high')
+    ), 
+    write(Desc), write(Rating), nl, fail.
+
+score(influenza, Desc) :-
+     score_influenza(Score),
+    (
+        (Score = 0 -> Rating = ': none');
+        (Score >= 1 , Score < 7 -> Rating = ': low');
+        (Score >= 7 , Score < 12  -> Rating = ': moderate');
+        (Score >= 12   -> Rating = ': high')
+    ), 
+    write(Desc), write(Rating), nl, fail.
+    
+score(pneumoconiosis, Desc) :-
+     score_pneumoconiosis(Score),
+    (
+        (Score = 0 -> Rating = ': none');
+        (Score >= 1 , Score < 7 -> Rating = ': low');
+        (Score >= 7 , Score < 12  -> Rating = ': moderate');
+        (Score >= 12   -> Rating = ': high')
+    ), 
+    write(Desc), write(Rating), nl, fail.
+    
+score(cystic_fibrosis, Desc) :-
+     score_cystic_fibrosis(Score),
+    (
+        (Score = 0 -> Rating = ': none');
+        (Score >= 1 , Score < 7 -> Rating = ': low');
+        (Score >= 7 , Score < 12  -> Rating = ': moderate');
+        (Score >= 12   -> Rating = ': high')
+    ), 
+    write(Desc), write(Rating), nl, fail.
+    
+score(sleep_apnea, Desc) :-
+     score_sleep_apnea(Score),
+    (
+        (Score = 0 -> Rating = ': none');
+        (Score >= 1 , Score < 7 -> Rating = ': low');
+        (Score >= 7 , Score < 12  -> Rating = ': moderate');
+        (Score >= 12   -> Rating = ': high')
+    ), 
+    write(Desc), write(Rating), nl, nl.
+
+bronchitis :-
     (
         (symptom(fatigue) , symptom(coughing) -> true) ;
         (symptom(fatigue) , symptom(fever) -> true) ;
@@ -160,22 +245,14 @@ bronchitis(Score) :-
         (symptom(coughing) , symptom(fever) -> true) ;
         (symptom(coughing) , symptom(breathing) -> true) ;
         (symptom(fever) , symptom(breathing) -> true)
-    ) , write(Score), nl,
+    ) ,
     (
         symptom(chest_pain); 
         symptom(wheezing); 
         check_symptom(mucus)
     ), fail.
     
-tuberculosis(Score) :-
-/*
-    symptom(fatigue), 
-    symptom(coughing),
-    symptom(fever), 
-    not_symptom(breathing),
-    symptom(chest_pain), 
-    not_symptom(wheezing)
-*/
+tuberculosis:-
     (
         (symptom(fatigue) , symptom(coughing) -> true) ;
         (symptom(fatigue) , symptom(fever) -> true) ;
@@ -183,100 +260,60 @@ tuberculosis(Score) :-
         (symptom(coughing) , symptom(fever) -> true) ;
         (symptom(coughing) , symptom(chest_pain) -> true) ;
         (symptom(fever) , symptom(chest_pain) -> true)
-    ), write(Score), nl,
+    ),
     (
         check_symptom(appetite); 
         check_symptom(night_sweats); 
         check_symptom(weight_loss)
     ), fail.
 
-acute_respiratory_infection(Score) :-
-/*
-    symptom(fatigue), 
-    not_symptom(coughing),
-    symptom(fever),
-    not_symptom(breathing), 
-    not_symptom(chest_pain),
-    symptom(wheezing),
-*/  
+acute_respiratory_infection :-
     (
         (symptom(fatigue) , symptom(fever) -> true) ;
         (symptom(fatigue) , symptom(wheezing) -> true) ;
         (symptom(fever) , symptom(wheezing))
-    ) , write(Score), nl,
+    ) ,
     (
         check_symptom(headache); 
         check_symptom(swallow)
     ), fail.
 
-pneumonia(Score) :-
-/*
-    not_symptom(fatigue), 
-    not_symptom(coughing),
-    symptom(fever), 
-    symptom(breathing),
-    symptom(chest_pain), 
-    not_symptom(wheezing), 
-*/
+pneumonia :-
     (
         (symptom(fever) , symptom(breathing) -> true) ;
         (symptom(fever) , symptom(chest_pain) -> true) ;
         (symptom(breathing) , symptom(chest_pain))
-    ) , write(Score), nl,
+    ) , 
     (
         check_symptom(heartbeat); 
         check_symptom(shivering); 
         check_symptom(appetite)
     ), fail.
 
-asthma(Score) :-
-/*
-    not_symptom(fatigue),
-    symptom(coughing),
-    not_symptom(fever),
-    symptom(breathing),
-    not_symptom(chest_pain),
-    symptom(wheezing), 
-*/
+asthma :-
     (
         (symptom(coughing) , symptom(breathing) -> true) ;
         (symptom(coughing) , symptom(wheezing) -> true) ;
         (symptom(breathing) , symptom(wheezing))
-    ) , write(Score), nl,
+    ) , 
     (
         check_symptom(chest_tightening); 
         check_symptom(short_breathing)
     ), fail.
 
-cardiomyopathy(Score) :-
-/*
-    symptom(fatigue),
-    not_symptom(coughing),
-    not_symptom(fever),
-    symptom(breathing),
-    symptom(chest_pain),
-    not_symptom(wheezing),
-*/
+cardiomyopathy :-
     (
         (symptom(fatigue) , symptom(breathing) -> true) ;
         (symptom(fatigue) , symptom(chest_pain) -> true) ;
         (symptom(breathing) , symptom(chest_pain))
-    ) , write(Score), nl,
+    ) , 
     (
         check_symptom(fainting); 
         check_symptom(lightheadedness)
     ), fail.
 
-influenza(Score) :-
-/*
-    symptom(fatigue),
-    symptom(coughing),
-    not_symptom(fever),
-    not_symptom(breathing),
-    not_symptom(chest_pain),
-    not_symptom(wheezing),
-*/
-    symptom(fatigue), symptom(coughing), Score = 6, write(Score), nl,
+influenza :-
+    symptom(fatigue), symptom(coughing), 
     (
         check_symptom(headache); 
         check_symptom(runny_nose); 
@@ -284,54 +321,157 @@ influenza(Score) :-
         check_symptom(muscle_pain)
     ), fail.
 
-pneumoconiosis(Score) :-
-/*
-    symptom(fatigue),
-    symptom(coughing),
-    not_symptom(fever),
-    not_symptom(breathing),
-    not_symptom(chest_pain),
-    not_symptom(wheezing),
-*/
-    symptom(fatigue), symptom(coughing), Score = 7, write(Score), nl,
+pneumoconiosis :-
+    symptom(fatigue), symptom(coughing), 
     (
         check_symptom(runny_nose); 
         check_symptom(short_breathing); 
         check_symptom(chest_tightening)
     ), fail.
 
-cystic_fibrosis(Score) :-
-/*
-    not_symptom(fatigue),
-    symptom(coughing),
-    not_symptom(fever),
-    not_symptom(breathing),
-    not_symptom(chest_pain),
-    symptom(wheezing),
-*/
-    symptom(coughing), symptom(wheezing), Score = 8, write(Score), nl,
+cystic_fibrosis :-
+    symptom(coughing), symptom(wheezing), 
     (
         check_symptom(short_breathing); 
         check_symptom(poor_growth); 
         check_symptom(salt_tasting)
     ), fail.
 
-sleep_apnea(Score) :-
-/*
-    symptom(fatigue),
-    not_symptom(coughing),
-    not_symptom(fever),
-    not_symptom(breathing),
-    not_symptom(chest_pain),
-    not_symptom(wheezing),
-*/
-    symptom(fatigue), check_symptom(daytime), Score = 9, write(Score), nl,
+sleep_apnea :-
+    symptom(fatigue), check_symptom(daytime), 
     ( 
         check_symptom(headache); 
         check_symptom(throat);  
         check_symptom(snoring);  
         check_symptom(reduced)
-    ), fail.
+    ).
+
+score_bronchitis(Score) :-
+    % Common symptoms
+    (symptom(fatigue) -> Fa = 1 ; Fa = 0 ),
+    (symptom(coughing) -> Co = 1 ; Co = 0 ),
+    (symptom(fever) -> Fe = 1 ; Fe = 0 ),
+    (symptom(breathing) -> Br = 1 ; Br = 0),
+
+    % Unique symptoms
+    (symptom(chest_pain) -> Ch = 5 ; Ch = 0),
+    (symptom(wheezing) -> Wh = 5 ; Wh = 0),
+    (symptom(mucus) -> Mu = 5 ; Mu = 0),
+
+    Score is Fa + Co + Fe + Br + Ch + Wh + Mu.
+
+score_tuberculosis(Score) :- 
+    % Common symptoms
+    (symptom(fatigue) -> Fa = 1 ; Fa = 0 ),
+    (symptom(coughing) -> Co = 1 ; Co = 0 ),
+    (symptom(fever) -> Fe = 1 ; Fe = 0 ),
+    (symptom(chest_pain) -> Ch = 1 ; Ch = 0),
+
+    % Unique symptoms
+    (symptom(appetite) -> Ap = 5 ; Ap = 0),
+    (symptom(night_sweats) -> Ni = 5 ; Ni = 0),
+    (symptom(weight_loss) -> We = 5 ; We = 0),
+
+    Score is Fa + Co + Fe + Ch+ Ap + Ni + We.
+
+score_acute_respiratory_infection(Score) :- 
+    % Common symptoms
+    (symptom(fatigue) -> Fa = 1 ; Fa = 0 ),
+    (symptom(fever) -> Fe = 1 ; Fe = 0 ),
+    (symptom(wheezing) -> Wh = 1 ; Wh = 0),
+
+    % Unique symptoms
+    (symptom(headache) -> He = 5 ; He = 0),
+    (symptom(swallow) -> Sw = 5 ; Sw = 0),
+
+    Score is Fa + Fe + Wh + He + Sw.
+
+score_pneumonia(Score) :- 
+    % Common symptoms
+    (symptom(fever) -> Fe = 1 ; Fe = 0 ),
+    (symptom(breathing) -> Br = 1 ; Br = 0 ),
+    (symptom(chest_pain) -> Ch = 1 ; Ch = 0),
+
+    % Unique symptoms
+    (symptom(heartbeat) -> He = 5 ; He = 0 ),
+    (symptom(shivering) -> Sh = 5 ; Sh = 0 ),
+    (symptom(appetite) -> Ap = 5 ; Ap = 0 ),
+
+    Score is Fe + Br + Ch + He + Sh + Ap.
+
+score_asthma(Score) :- 
+    % Common symptoms
+    (symptom(coughing) -> Co = 1 ; Co = 0 ),
+    (symptom(breathing) -> Br = 1 ; Br = 0 ),
+    (symptom(wheezing) -> Wh = 1 ; Wh = 0 ),
+
+    % Unique symptoms
+    (symptom(chest_tightening) -> Ch = 5 ; Ch = 0 ),
+    (symptom(short_breathing) -> Sh = 5 ; Sh = 0 ),
+
+    Score is Co + Br + Wh + Ch + Sh.
+
+score_cardiomyopathy(Score) :- 
+    % Common symptoms
+    (symptom(fatigue) -> Fa = 1 ; Fa = 0 ),
+    (symptom(breathing) -> Br = 1 ; Br = 0 ),
+    (symptom(chest_pain) -> Ch = 1 ; Ch = 0 ),
+
+    % Unique symptoms
+    (symptom(fainting) -> Fai = 5 ; Fai = 0 ),
+    (symptom(lightheadedness) -> Li = 5 ; Li = 0 ),
+
+    Score is Fa + Br + Ch + Fai + Li.
+
+score_influenza(Score) :- 
+    % Common symptoms
+    (symptom(fatigue) -> Fa = 1 ; Fa = 0 ),
+    (symptom(coughing) -> Co = 1 ; Co = 0 ),
+
+    % Unique symptoms
+    (symptom(headache) -> He = 5 ; He = 0 ),
+    (symptom(shivering) -> Sh = 5 ; Sh = 0 ),
+    (symptom(throat) -> Th = 5 ; Th = 0 ),
+    (symptom(muscle_pain) -> Mu = 5 ; Mu = 0 ),
+
+    Score is Fa + Co + He + Sh + Th + Mu.
+
+score_pneumoconiosis(Score) :- 
+    % Common symptoms
+    (symptom(fatigue) -> Fa = 1 ; Fa = 0 ),
+    (symptom(coughing) -> Co = 1 ; Co = 0 ),
+
+    % Unique symptoms
+    (symptom(runny_nose) -> Ru = 5 ; Ru = 0 ),
+    (symptom(short_breathing) -> Sh = 5 ; Sh = 0 ),
+    (symptom(chest_tightening) -> Ch = 5 ; Ch = 0 ),
+
+    Score is Fa + Co + Ru + Sh + Ch.
+
+score_cystic_fibrosis(Score) :- 
+    % Common symptoms
+    (symptom(coughing) -> Co = 1 ; Co = 0 ),
+    (symptom(wheezing) -> Wh = 1 ; Wh = 0 ),
+
+    % Unique symptoms
+    (symptom(short_breathing) -> Sh = 5 ; Sh = 0 ),
+    (symptom(poor_growth) -> Po = 5 ; Po = 0 ),
+    (symptom(salt_tasting) -> St = 5 ; St = 0 ),
+
+    Score is Co + Wh + Sh + Po + St.
+
+score_sleep_apnea(Score) :- 
+    % Common symptoms
+    (symptom(fatigue) -> Fa = 1 ; Fa = 0 ),
+    (symptom(daytime) -> Da = 1 ; Da = 0 ),
+
+    % Unique symptoms
+    (symptom(headache) -> He = 5 ; He = 0 ),
+    (symptom(throat) -> Th = 5 ; Th = 0 ),
+    (symptom(snoring) -> Sn = 5 ; Sn = 0 ),
+    (symptom(reduced) -> Re = 5 ; Re = 0 ),
+
+    Score is Fa + Da + He + Th + Sn + Re.
 
 undo :- retract(symptom(_)),fail.
 undo :- retract(not_symptom(_)),fail.
