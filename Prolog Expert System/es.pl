@@ -11,6 +11,11 @@ bmi(Weight, Height) :-
     (BMI >= 30 -> BMI_var = obese)
     ), assert(info(bmi, BMI_var)).
 
+coughing_duration :-
+    write('Duration of coughing (in weeks): '),
+    read(D), nl,
+    assert(info(duration, D)).
+
 % Print Score
 print_score(Desc, Score) :-
     (
@@ -57,6 +62,7 @@ diagnose :-
     write('Chief complaint (y/n): '), nl, 
     chief_complaint(Comp, _),
     chief_complaint_query(Comp),
+    ((symptom(coughing) -> coughing_duration) ; true),
     write('Does patient have the following symptoms (y/n): '), nl, 
     possible_disease(Dis, _),
     disease(Dis),
@@ -138,6 +144,8 @@ possible_symptoms(reduced, 'Reduced or absent breathing during sleep').
 possible_symptoms(salt_tasting, 'Salty-tasting skin').
 possible_symptoms(vomitting, 'Vomitting').
 possible_symptoms(diarrhea, 'Diarrhea').
+possible_symptoms(dust_exposure, 'Dust Exposure').
+possible_symptoms(cracking, 'Cracking sound in lungs').
 
 disease(bronchitis) :- bronchitis.
 disease(tuberculosis) :- tuberculosis.
@@ -252,6 +260,7 @@ cardiomyopathy :-
     ) , 
     (
         check_symptom(fainting); 
+        check_symptom(cracking); 
         check_symptom(lightheadedness)
     ), fail.
 
@@ -268,6 +277,7 @@ influenza :-
 pneumoconiosis :-
     symptom(fatigue), symptom(coughing), 
     (
+        check_symptom(dust_exposure); 
         check_symptom(runny_nose); 
         check_symptom(short_breathing); 
         check_symptom(chest_tightening)
@@ -288,7 +298,7 @@ sleep_apnea :-
         check_symptom(throat);  
         check_symptom(snoring);  
         check_symptom(reduced)
-    ).
+    ), fail.
 
 score_bronchitis(Score) :-
     % Common symptoms
@@ -297,12 +307,15 @@ score_bronchitis(Score) :-
     (symptom(fever) -> Fe = 1 ; Fe = 0 ),
     (symptom(breathing) -> Br = 1 ; Br = 0),
 
+    % Info symptoms
+    (info(duration, D), D > 1 -> Du = 2 ; Du = 0),
+
     % Unique symptoms
     (symptom(chest_pain) -> Ch = 5 ; Ch = 0),
     (symptom(wheezing) -> Wh = 5 ; Wh = 0),
     (symptom(mucus) -> Mu = 5 ; Mu = 0),
 
-    Score is Fa + Co + Fe + Br + Ch + Wh + Mu.
+    Score is Fa + Co + Fe + Br + Ch + Wh + Mu + Du.
 
 score_tuberculosis(Score) :- 
     % Common symptoms
@@ -311,12 +324,15 @@ score_tuberculosis(Score) :-
     (symptom(fever) -> Fe = 1 ; Fe = 0 ),
     (symptom(chest_pain) -> Ch = 1 ; Ch = 0),
 
+    % Info symptoms
+    (info(duration, D), D > 3 -> Du = 2 ; Du = 0),
+
     % Unique symptoms
     (symptom(appetite) -> Ap = 5 ; Ap = 0),
     (symptom(night_sweats) -> Ni = 5 ; Ni = 0),
     (symptom(weight_loss) -> We = 5 ; We = 0),
 
-    Score is Fa + Co + Fe + Ch+ Ap + Ni + We.
+    Score is Fa + Co + Fe + Ch+ Ap + Ni + We + Du.
 
 score_acute_respiratory_infection(Score) :- 
     % Common symptoms
@@ -325,7 +341,7 @@ score_acute_respiratory_infection(Score) :-
     (symptom(wheezing) -> Wh = 1 ; Wh = 0),
 
     % Info symptoms
-    (info(age_group, teen) ; info(age_group, adult) -> Ag = 2 ; Ag = 0),
+    ((info(age_group, teen) ; info(age_group, adult)) -> Ag = 2 ; Ag = 0),
 
     % Unique symptoms
     (symptom(headache) -> He = 5 ; He = 0),
@@ -354,7 +370,7 @@ score_asthma(Score) :-
     
     % Info symptoms
     ((info(age_group, infant) ; info(age_group, children) , info(sex, male)) -> Ag = 1 ; Ag = 0 ),
-    ((info(age_group, teen) ; info(age_group, adult) ;  info(age_group, elder), info(sex, female)) -> Age = 1 ; Age = 0 ),
+    (((info(age_group, teen) ; info(age_group, adult) ;  info(age_group, elder)), info(sex, female)) -> Age = 1 ; Age = 0 ),
 
     % Unique symptoms
     (symptom(chest_tightening) -> Ch = 5 ; Ch = 0 ),
@@ -370,9 +386,10 @@ score_cardiomyopathy(Score) :-
 
     % Unique symptoms
     (symptom(fainting) -> Fai = 5 ; Fai = 0 ),
+    (symptom(cracking) -> Cr = 5 ; Cr = 0 ),
     (symptom(lightheadedness) -> Li = 5 ; Li = 0 ),
 
-    Score is Fa + Br + Ch + Fai + Li.
+    Score is Fa + Br + Ch + Fai + Li + Cr.
 
 score_influenza(Score) :- 
     % Common symptoms
@@ -385,11 +402,11 @@ score_influenza(Score) :-
 
     % Unique symptoms
     (symptom(headache) -> He = 5 ; He = 0 ),
-    (symptom(shivering) -> Sh = 5 ; Sh = 0 ),
     (symptom(throat) -> Th = 5 ; Th = 0 ),
+    (symptom(runny_nose) -> Ru = 5 ; Ru = 0 ),
     (symptom(muscle_pain) -> Mu = 5 ; Mu = 0 ),
 
-    Score is Fa + Co + He + Sh + Th + Mu + Vo + Di.
+    Score is Fa + Co + He + Ru + Th + Mu + Vo + Di.
 
 score_pneumoconiosis(Score) :- 
     % Common symptoms
@@ -401,14 +418,13 @@ score_pneumoconiosis(Score) :-
     (info(age, Age2), Age2 > 50, info(respiratory_rate, Resp2), Resp2 >= 30 -> Res2 = 2 ; Res2 = 0 ),
     (info(sex, male) -> Se = 1 ; Se = 0 ),
 
-    (info(sex, male) -> Se = 1 ; Se = 0 ),
-
     % Unique symptoms
+    (symptom(dust_exposure) -> Du = 5 ; Du = 0 ),
     (symptom(runny_nose) -> Ru = 5 ; Ru = 0 ),
     (symptom(short_breathing) -> Sh = 5 ; Sh = 0 ),
     (symptom(chest_tightening) -> Ch = 5 ; Ch = 0 ),
 
-    Score is Fa + Co + Ru + Sh + Ch + Se + Res + Res2.
+    Score is Fa + Co + Ru + Sh + Ch + Se + Res + Res2 + Du.
 
 score_cystic_fibrosis(Score) :- 
     % Common symptoms
