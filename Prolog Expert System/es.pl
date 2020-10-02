@@ -66,7 +66,8 @@ diagnose :-
     write('Does patient have the following symptoms (y/n): '), nl, 
     possible_disease(Dis, _),
     disease(Dis),
-    check_scores.
+    check_scores,
+    undo.
 
 check_symptom(Symp) :-
     (symptom(Symp) -> true ; (not_symptom(Symp) -> true ; query(Symp))).
